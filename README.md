@@ -3,3 +3,5 @@ $$\LARGE {\color{white}\textrm{bi}}{\color{gray}\textrm{nary~}}{\color{white}\te
 <div align="center">
     <img width="300" src="/assets/logo.png" alt="logo" />
 </div>
+
+Biden provides low-level facilities for converting between Go's primitive types and binary data streams.

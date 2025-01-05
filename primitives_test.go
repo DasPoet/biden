@@ -1,10 +1,6 @@
 package biden
 
-import (
-	"testing"
-
-	"github.com/stretchr/testify/assert"
-)
+import "testing"
 
 func TestMarshalUnmarshalUint8(t *testing.T) {
 	testMarshalUnmarshal(t, 0, Uint8Bytes, MarshalUint8, UnmarshalUint8)
@@ -192,14 +188,4 @@ func TestMarshalUnmarshalFloat64(t *testing.T) {
 func TestMarshalUnmarshalString(t *testing.T) {
 	testMarshalUnmarshal(t, "", StringBytes(""), MarshalString, UnmarshalString)
 	testMarshalUnmarshal(t, "hello world", StringBytes("hello world"), MarshalString, UnmarshalString)
-}
-
-func testMarshalUnmarshal[T any](t *testing.T, value T, size int, marshaler MarshalFunc[T], unmarshaler UnmarshalFunc[T]) {
-	encoded := Marshal(value, size, marshaler)
-	decoded := Unmarshal(encoded, unmarshaler)
-
-	assert.Equal(t, value, decoded)
-
-	encoded2 := Marshal(decoded, size, marshaler)
-	assert.Equal(t, encoded, encoded2)
 }

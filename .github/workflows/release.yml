@@ -23,3 +23,4 @@ jobs:
           source .venv/bin/activate
           pip install GitPython
           python release/create-tags.py CHANGELOG.md
+          git push --tags

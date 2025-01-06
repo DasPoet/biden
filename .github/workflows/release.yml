@@ -20,4 +20,4 @@ jobs:
           python -m venv .venv
           source .venv/bin/activate
           pip install GitPython
-          python release/create-tags.py
+          python release/create-tags.py CHANGELOG.md

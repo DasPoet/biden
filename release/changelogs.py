@@ -8,6 +8,11 @@ class Changelist:
     type: str
     changes: list[str] = field(default_factory=list)
 
+    def to_markdown(self) -> str:
+        changes = '\n'.join('- ' + change for change in self.changes)
+
+        return f"## {self.type}\n\n{changes}"
+
 
 @dataclass
 class Version:
@@ -15,7 +20,7 @@ class Version:
     changelists: list[Changelist] = field(default_factory=list)
 
     def to_markdown(self) -> str:
-        changes = [f"## {cl.type}\n\n{'\n'.join('- ' + change for change in cl.changes)}" for cl in self.changelists]
+        changes = map(lambda cl: cl.to_markdown(), self.changelists)
 
         return "# Changes\n\n" + "\n\n".join(changes)
 

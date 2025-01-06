@@ -17,6 +17,8 @@ jobs:
         with:
           python-version: '3.12'
       - run: |
+          git config --global user.name 'DasPoet'
+          git config --global user.email 'cederk2306@gmail.com'
           python -m venv .venv
           source .venv/bin/activate
           pip install GitPython

@@ -25,7 +25,7 @@ def create_releases(repo: Repository, changelog: Changelog):
 
         repo.create_git_release(
             tag=tag,
-            name=f"Release {tag}",
+            name=f"v{tag}",
             message=get_release_message(version),
             draft=False,
             prerelease=False

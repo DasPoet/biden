@@ -21,10 +21,14 @@ def get_release_message(version: Version) -> str:
 
 def create_releases(repo: Repository, changelog: Changelog):
     releases = [release.tag_name for release in repo.get_releases()]
-    versions = [version for version in changelog.versions if version.name not in releases]
 
-    for version in versions:
+    for version in changelog.versions:
         tag = version.name
+        if tag in releases:
+            print(f"skipping release for v{tag} as it already exists")
+            continue
+
+        print(f"creating release for v{tag}")
 
         repo.create_git_release(
             tag=tag,

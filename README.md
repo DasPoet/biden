@@ -14,3 +14,6 @@ $$\LARGE {\color{white}\textrm{bi}}{\color{gray}\textrm{nary~}}{\color{white}\te
     Biden provides low-level facilities for converting between Go's primitive types and binary data streams.
 </div
 
+## TODO
+
+* benchmark one generic Marshal/Unmarshal func per byte size

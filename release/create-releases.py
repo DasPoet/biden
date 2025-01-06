@@ -20,7 +20,10 @@ def get_release_message(version: Version) -> str:
 
 
 def create_releases(repo: Repository, changelog: Changelog):
-    for version in changelog.versions:
+    releases = [release.tag_name for release in repo.get_releases()]
+    versions = [version for version in changelog.versions if version.name not in releases]
+
+    for version in versions:
         tag = version.name
 
         repo.create_git_release(

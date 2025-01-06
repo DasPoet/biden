@@ -7,6 +7,9 @@ from changelogs import parse_changelog
 def create_git_tag_if_not_exists(name: str, description: str | None = None):
     repo = git.Repo(".")
 
+    repo.config_writer().set_value("user", "name", "DasPoet").release()
+    repo.config_writer().set_value("user", "email", "cederk2306@gmail.com").release()
+
     if name not in [tag.name for tag in repo.tags]:
         print(f"creating tag '{name}'")
         repo.create_tag(name, message=description)

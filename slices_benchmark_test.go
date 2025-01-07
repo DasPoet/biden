@@ -13,11 +13,31 @@ const (
 
 var rng = rand.New(rand.NewSource(2306))
 
-var encodeResult []byte
+var (
+	encodeResult []byte
+
+	decodedUints   []uint
+	decodedUint8s  []uint8
+	decodedUint16s []uint16
+	decodedUint32s []uint32
+	decodedUint64s []uint64
+
+	decodedInts   []int
+	decodedInt8s  []int8
+	decodedInt16s []int16
+	decodedInt32s []int32
+	decodedInt64s []int64
+
+	decodedFloat32s []float32
+	decodedFloat64s []float64
+
+	decodedBools   []bool
+	decodedStrings []string
+)
 
 func BenchmarkMarshalBoolSlice(b *testing.B) {
-	nums := makeBools()
-	encodeResult = benchmarkMarshalSlice(b, nums, BoolBytes, MarshalBool)
+	bools := makeBools()
+	encodeResult = benchmarkMarshalSlice(b, bools, BoolBytes, MarshalBool)
 }
 
 func BenchmarkMarshalUintSlice(b *testing.B) {
@@ -97,6 +117,91 @@ func BenchmarkMarshalStringSlice(b *testing.B) {
 	encodeResult = result
 }
 
+func BenchmarkUnmarshalBoolSlice(b *testing.B) {
+	bools := makeBools()
+	decodedBools = benchmarkUnmarshalSlice(b, bools, BoolBytes, MarshalBool, UnmarshalBool)
+}
+
+func BenchmarkUnmarshalUintSlice(b *testing.B) {
+	nums := makeUints()
+	decodedUints = benchmarkUnmarshalSlice(b, nums, UintBytes, MarshalUint, UnmarshalUint)
+}
+
+func BenchmarkUnmarshalUint8Slice(b *testing.B) {
+	nums := makeUint8s()
+	decodedUint8s = benchmarkUnmarshalSlice(b, nums, Uint8Bytes, MarshalUint8, UnmarshalUint8)
+}
+
+func BenchmarkUnmarshalUint16Slice(b *testing.B) {
+	nums := makeUint16s()
+	decodedUint16s = benchmarkUnmarshalSlice(b, nums, Uint16Bytes, MarshalUint16, UnmarshalUint16)
+}
+
+func BenchmarkUnmarshalUint32Slice(b *testing.B) {
+	nums := makeUint32s()
+	decodedUint32s = benchmarkUnmarshalSlice(b, nums, Uint32Bytes, MarshalUint32, UnmarshalUint32)
+}
+
+func BenchmarkUnmarshalUint64Slice(b *testing.B) {
+	nums := makeUint64s()
+	decodedUint64s = benchmarkUnmarshalSlice(b, nums, Uint64Bytes, MarshalUint64, UnmarshalUint64)
+}
+
+func BenchmarkUnmarshalIntSlice(b *testing.B) {
+	nums := makeInts()
+	decodedInts = benchmarkUnmarshalSlice(b, nums, IntBytes, MarshalInt, UnmarshalInt)
+}
+
+func BenchmarkUnmarshalInt8Slice(b *testing.B) {
+	nums := makeInt8s()
+	decodedInt8s = benchmarkUnmarshalSlice(b, nums, Int8Bytes, MarshalInt8, UnmarshalInt8)
+}
+
+func BenchmarkUnmarshalInt16Slice(b *testing.B) {
+	nums := makeInt16s()
+	decodedInt16s = benchmarkUnmarshalSlice(b, nums, Int16Bytes, MarshalInt16, UnmarshalInt16)
+}
+
+func BenchmarkUnmarshalInt32Slice(b *testing.B) {
+	nums := makeInt32s()
+	decodedInt32s = benchmarkUnmarshalSlice(b, nums, Int32Bytes, MarshalInt32, UnmarshalInt32)
+}
+
+func BenchmarkUnmarshalInt64Slice(b *testing.B) {
+	nums := makeInt64s()
+	decodedInt64s = benchmarkUnmarshalSlice(b, nums, Int64Bytes, MarshalInt64, UnmarshalInt64)
+}
+
+func BenchmarkUnmarshalFloat32Slice(b *testing.B) {
+	nums := makeFloat32s()
+	decodedFloat32s = benchmarkUnmarshalSlice(b, nums, Float32Bytes, MarshalFloat32, UnmarshalFloat32)
+}
+
+func BenchmarkUnmarshalFloat64Slice(b *testing.B) {
+	nums := makeFloat64s()
+	decodedFloat64s = benchmarkUnmarshalSlice(b, nums, Float64Bytes, MarshalFloat64, UnmarshalFloat64)
+}
+
+func BenchmarkUnmarshalStringSlice(b *testing.B) {
+	var (
+		strings = makeStrings()
+		size    = StringSliceBytes(strings)
+
+		marshaler   = makeSliceMarshaler(MarshalString)
+		unmarshaler = makeSliceUnmarshaler(UnmarshalString)
+
+		encoded = Marshal(strings, size, marshaler)
+	)
+
+	b.ResetTimer()
+
+	var result []string
+	for i := 0; i < b.N; i++ {
+		result = Unmarshal(encoded, unmarshaler)
+	}
+	decodedStrings = result
+}
+
 func benchmarkMarshalSlice[T any](b *testing.B, slice []T, itemSize int, itemMarshaler MarshalFunc[T]) []byte {
 	var (
 		size      = SliceBytes(slice, itemSize)
@@ -108,6 +213,25 @@ func benchmarkMarshalSlice[T any](b *testing.B, slice []T, itemSize int, itemMar
 	var result []byte
 	for i := 0; i < b.N; i++ {
 		result = Marshal(slice, size, marshaler)
+	}
+	return result
+}
+
+func benchmarkUnmarshalSlice[T any](b *testing.B, slice []T, itemSize int, itemMarshaler MarshalFunc[T], itemUnmarshaler UnmarshalFunc[T]) []T {
+	var (
+		size = SliceBytes(slice, itemSize)
+
+		marshaler   = makeSliceMarshaler(itemMarshaler)
+		unmarshaler = makeSliceUnmarshaler(itemUnmarshaler)
+
+		encoded = Marshal(slice, size, marshaler)
+	)
+
+	b.ResetTimer()
+
+	var result []T
+	for i := 0; i < b.N; i++ {
+		result = Unmarshal(encoded, unmarshaler)
 	}
 	return result
 }

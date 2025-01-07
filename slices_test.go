@@ -44,15 +44,3 @@ func testMarshalUnmarshalSlice[T any](t *testing.T, value []T, itemSize int, ite
 
 	testMarshalUnmarshal(t, value, size, marshaler, unmarshaler)
 }
-
-func makeSliceMarshaler[T any](itemMarshaler MarshalFunc[T]) MarshalFunc[[]T] {
-	return func(pos int, buf []byte, value []T) int {
-		return MarshalSlice(pos, buf, value, itemMarshaler)
-	}
-}
-
-func makeSliceUnmarshaler[T any](itemUnmarshaler UnmarshalFunc[T]) UnmarshalFunc[[]T] {
-	return func(pos int, buf []byte) ([]T, int) {
-		return UnmarshalSlice(pos, buf, itemUnmarshaler)
-	}
-}

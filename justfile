@@ -1,3 +1,5 @@
+set shell := ["powershell", "-ExecutionPolicy", "Bypass", "-c"]
+
 fmt:
     go fmt ./...
 
@@ -5,4 +7,7 @@ test:
     go test ./...
 
 bench-slices:
-    go test -bench="." -benchmem slices_benchmark_test.go helpers_test.go primitives.go slices.go biden.go
+    cd benchmark; go test -bench="." -benchmem .
+
+bench-slices-and-visualise:
+    cd graphs; .venv\Scripts\activate; cd ../; just bench-slices | go run v1/internal/benchmark/cmd/main.go | python graphs/graphs.py

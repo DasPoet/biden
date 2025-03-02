@@ -26,3 +26,6 @@ go.work.sum
 
 # pycache
 release/__pycache__
+
+# Python
+**/.venv/

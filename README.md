@@ -22,3 +22,4 @@ just bench-slices > out.txt && cat out.txt | go run v1/internal/benchmark/cmd/ma
 
 * benchmark one generic Marshal/Unmarshal func per byte size
 
+![benchmark marshal](graphs/pull_request/1/benchmark_marshal.svg)

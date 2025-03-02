@@ -53,3 +53,10 @@ jobs:
         . .venv/bin/activate
         cd ../benchmark
         go test -bench="." -benchmem . | go run ../v1/internal/benchmark/cmd/main.go | python ../graphs/graphs.py
+
+    - name: Comment benchmark results
+      uses: thollander/actions-comment-pull-request@v3
+      with:
+        message: |
+          Hello world ! :wave:
+      if: github.event_name == 'pull_request'

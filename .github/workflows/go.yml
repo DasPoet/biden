@@ -8,7 +8,8 @@ on:
 
 jobs:
   build-test-check:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
+    timeout-minutes: 60
     steps:
     - uses: actions/checkout@v4
 
@@ -16,6 +17,11 @@ jobs:
       uses: actions/setup-go@v4
       with:
         go-version: '1.23'
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
 
     - name: Build
       run: go build -v ./...
@@ -31,3 +37,19 @@ jobs:
           go fmt ./...
           exit 1
         fi
+
+    - name: Install dependencies for creating graphs
+      run: |
+        cd graphs
+        curl -LsSf https://astral.sh/uv/install.sh | sh
+        source $HOME/.local/bin/env
+        uv venv
+        . .venv/bin/activate
+        uv pip install -r requirements.txt
+
+    - name: Benchmark
+      run: |
+        cd graphs
+        . .venv/bin/activate
+        cd ../benchmark
+        go test -bench="." -benchmem . | go run ../v1/internal/benchmark/cmd/main.go | python ../graphs/graphs.py

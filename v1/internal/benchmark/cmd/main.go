@@ -20,6 +20,7 @@ const (
 )
 
 type BenchmarkResult struct {
+	Library    string        `json:"benchmarkLibrary"`
 	Type       BenchmarkType `json:"benchmarkType"`
 	DataType   string        `json:"dataType"`
 	NanosPerOp int           `json:"nanosPerOp"`
@@ -75,6 +76,7 @@ func parseBenchmark(raw parse.Benchmark) (*BenchmarkResult, error) {
 	}
 
 	parsed := BenchmarkResult{
+		Library:    name.Library,
 		Type:       name.Type,
 		DataType:   name.DataType,
 		NanosPerOp: int(raw.NsPerOp),
@@ -83,13 +85,14 @@ func parseBenchmark(raw parse.Benchmark) (*BenchmarkResult, error) {
 }
 
 type ParsedBenchmarkName struct {
+	Library  string
 	Type     BenchmarkType
 	DataType string
 }
 
 func parseBenchmarkName(name string) (*ParsedBenchmarkName, error) {
 	var (
-		pattern = regexp.MustCompile(`Benchmark(?<type>Marshal|Unmarshal)(?<dataType>.*)-\d+`)
+		pattern = regexp.MustCompile(`Benchmark_(?<lib>.*)_(?<type>Marshal|Unmarshal)(?<dataType>.*)-\d+`)
 		groups  = extractNamedCapturingGroups(pattern, name)
 	)
 
@@ -104,6 +107,7 @@ func parseBenchmarkName(name string) (*ParsedBenchmarkName, error) {
 	}
 
 	parsed := &ParsedBenchmarkName{
+		Library:  groups["lib"],
 		Type:     typ,
 		DataType: groups["dataType"],
 	}
@@ -122,12 +126,4 @@ func extractNamedCapturingGroups(pattern *regexp.Regexp, target string) map[stri
 		}
 	}
 	return groups
-}
-
-func removeCores(testName string) string {
-	index := strings.LastIndex(testName, "-")
-	if index < 0 {
-		return testName
-	}
-	return testName[:index]
 }

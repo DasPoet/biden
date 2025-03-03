@@ -6,72 +6,72 @@ import (
 	biden "github.com/daspoet/biden/v1"
 )
 
-func BenchmarkMarshalBoolSlice(b *testing.B) {
+func Benchmark_Biden_MarshalBoolSlice(b *testing.B) {
 	bools := makeBools()
 	benchmarkMarshalSlice(b, bools, biden.BoolBytes, biden.MarshalBool)
 }
 
-func BenchmarkMarshalUintSlice(b *testing.B) {
+func Benchmark_Biden_MarshalUintSlice(b *testing.B) {
 	nums := makeUints()
 	benchmarkMarshalSlice(b, nums, biden.UintBytes, biden.MarshalUint)
 }
 
-func BenchmarkMarshalUint8Slice(b *testing.B) {
+func Benchmark_Biden_MarshalUint8Slice(b *testing.B) {
 	nums := makeUint8s()
 	benchmarkMarshalSlice(b, nums, biden.Uint8Bytes, biden.MarshalUint8)
 }
 
-func BenchmarkMarshalUint16Slice(b *testing.B) {
+func Benchmark_Biden_MarshalUint16Slice(b *testing.B) {
 	nums := makeUint16s()
 	benchmarkMarshalSlice(b, nums, biden.Uint16Bytes, biden.MarshalUint16)
 }
 
-func BenchmarkMarshalUint32Slice(b *testing.B) {
+func Benchmark_Biden_MarshalUint32Slice(b *testing.B) {
 	nums := makeUint32s()
 	benchmarkMarshalSlice(b, nums, biden.Uint32Bytes, biden.MarshalUint32)
 }
 
-func BenchmarkMarshalUint64Slice(b *testing.B) {
+func Benchmark_Biden_MarshalUint64Slice(b *testing.B) {
 	nums := makeUint64s()
 	benchmarkMarshalSlice(b, nums, biden.Uint64Bytes, biden.MarshalUint64)
 }
 
-func BenchmarkMarshalIntSlice(b *testing.B) {
+func Benchmark_Biden_MarshalIntSlice(b *testing.B) {
 	nums := makeInts()
 	benchmarkMarshalSlice(b, nums, biden.IntBytes, biden.MarshalInt)
 }
 
-func BenchmarkMarshalInt8Slice(b *testing.B) {
+func Benchmark_Biden_MarshalInt8Slice(b *testing.B) {
 	nums := makeInt8s()
 	benchmarkMarshalSlice(b, nums, biden.Int8Bytes, biden.MarshalInt8)
 }
 
-func BenchmarkMarshalInt16Slice(b *testing.B) {
+func Benchmark_Biden_MarshalInt16Slice(b *testing.B) {
 	nums := makeInt16s()
 	benchmarkMarshalSlice(b, nums, biden.Int16Bytes, biden.MarshalInt16)
 }
 
-func BenchmarkMarshalInt32Slice(b *testing.B) {
+func Benchmark_Biden_MarshalInt32Slice(b *testing.B) {
 	nums := makeInt32s()
 	benchmarkMarshalSlice(b, nums, biden.Int32Bytes, biden.MarshalInt32)
 }
 
-func BenchmarkMarshalInt64Slice(b *testing.B) {
+func Benchmark_Biden_MarshalInt64Slice(b *testing.B) {
 	nums := makeInt64s()
 	benchmarkMarshalSlice(b, nums, biden.Int64Bytes, biden.MarshalInt64)
 }
 
-func BenchmarkMarshalFloat32Slice(b *testing.B) {
+func Benchmark_Biden_MarshalFloat32Slice(b *testing.B) {
 	nums := makeFloat32s()
 	benchmarkMarshalSlice(b, nums, biden.Float32Bytes, biden.MarshalFloat32)
 }
 
-func BenchmarkMarshalFloat64Slice(b *testing.B) {
+func Benchmark_Biden_MarshalFloat64Slice(b *testing.B) {
 	nums := makeFloat64s()
 	benchmarkMarshalSlice(b, nums, biden.Float64Bytes, biden.MarshalFloat64)
 }
 
-func BenchmarkMarshalStringSlice(b *testing.B) {
+func Benchmark_Biden_MarshalStringSlice(b *testing.B) {
 	for b.Loop() {
 		var (
 			strings = makeStrings()

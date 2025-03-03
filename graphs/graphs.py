@@ -31,13 +31,17 @@ if __name__ == "__main__":
         plt.figure()
 
         plot = sns.barplot(
-            data=group, x="dataType", y="millisPerOp", hue="benchmarkType"
+            data=group, x="dataType", y="millisPerOp", hue="benchmarkLibrary"
         )
 
-        plt.title(str(typ))
+        plt.xticks(rotation=45)
 
-        plt.xlabel("data type")
-        plt.ylabel("duration (ms)")
+        plt.title(f"{str(typ).capitalize()} performance for primitive slices (lower is better)")
+
+        plt.xlabel("Type")
+        plt.ylabel("Duration (ms)")
+
+        plot.legend(title="Library")
 
         plt.tight_layout()
         plt.savefig(f"benchmark_{typ}.svg", dpi=600)

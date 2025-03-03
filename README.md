@@ -14,7 +14,15 @@ $$\LARGE {\color{white}\textrm{bi}}{\color{gray}\textrm{nary~}}{\color{white}\te
     Biden provides low-level facilities for converting between Go's primitive types and binary data streams.
 </div
 
+<hr />
+
 ## Benchmarks
 
-just bench-slices > out.txt && cat out.txt | go run v1/internal/benchmark/cmd/main.go out.json
+### Marshaling
+
+![marshal slices](assets/benchmark_marshal.svg)
+
+### Unmarshaling
+
+![unmarshal slices](assets/benchmark_unmarshal.svg)
 

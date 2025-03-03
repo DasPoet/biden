@@ -5,67 +5,67 @@ import (
 	"testing"
 )
 
-func BenchmarkUnmarshalUintSlice(b *testing.B) {
+func Benchmark_Biden_UnmarshalUintSlice(b *testing.B) {
 	nums := makeUints()
 	benchmarkUnmarshalSlice(b, nums, biden.UintBytes, biden.MarshalUint, biden.UnmarshalUint)
 }
 
-func BenchmarkUnmarshalUint8Slice(b *testing.B) {
+func Benchmark_Biden_UnmarshalUint8Slice(b *testing.B) {
 	nums := makeUint8s()
 	benchmarkUnmarshalSlice(b, nums, biden.Uint8Bytes, biden.MarshalUint8, biden.UnmarshalUint8)
 }
 
-func BenchmarkUnmarshalUint16Slice(b *testing.B) {
+func Benchmark_Biden_UnmarshalUint16Slice(b *testing.B) {
 	nums := makeUint16s()
 	benchmarkUnmarshalSlice(b, nums, biden.Uint16Bytes, biden.MarshalUint16, biden.UnmarshalUint16)
 }
 
-func BenchmarkUnmarshalUint32Slice(b *testing.B) {
+func Benchmark_Biden_UnmarshalUint32Slice(b *testing.B) {
 	nums := makeUint32s()
 	benchmarkUnmarshalSlice(b, nums, biden.Uint32Bytes, biden.MarshalUint32, biden.UnmarshalUint32)
 }
 
-func BenchmarkUnmarshalUint64Slice(b *testing.B) {
+func Benchmark_Biden_UnmarshalUint64Slice(b *testing.B) {
 	nums := makeUint64s()
 	benchmarkUnmarshalSlice(b, nums, biden.Uint64Bytes, biden.MarshalUint64, biden.UnmarshalUint64)
 }
 
-func BenchmarkUnmarshalIntSlice(b *testing.B) {
+func Benchmark_Biden_UnmarshalIntSlice(b *testing.B) {
 	nums := makeInts()
 	benchmarkUnmarshalSlice(b, nums, biden.IntBytes, biden.MarshalInt, biden.UnmarshalInt)
 }
 
-func BenchmarkUnmarshalInt8Slice(b *testing.B) {
+func Benchmark_Biden_UnmarshalInt8Slice(b *testing.B) {
 	nums := makeInt8s()
 	benchmarkUnmarshalSlice(b, nums, biden.Int8Bytes, biden.MarshalInt8, biden.UnmarshalInt8)
 }
 
-func BenchmarkUnmarshalInt16Slice(b *testing.B) {
+func Benchmark_Biden_UnmarshalInt16Slice(b *testing.B) {
 	nums := makeInt16s()
 	benchmarkUnmarshalSlice(b, nums, biden.Int16Bytes, biden.MarshalInt16, biden.UnmarshalInt16)
 }
 
-func BenchmarkUnmarshalInt32Slice(b *testing.B) {
+func Benchmark_Biden_UnmarshalInt32Slice(b *testing.B) {
 	nums := makeInt32s()
 	benchmarkUnmarshalSlice(b, nums, biden.Int32Bytes, biden.MarshalInt32, biden.UnmarshalInt32)
 }
 
-func BenchmarkUnmarshalInt64Slice(b *testing.B) {
+func Benchmark_Biden_UnmarshalInt64Slice(b *testing.B) {
 	nums := makeInt64s()
 	benchmarkUnmarshalSlice(b, nums, biden.Int64Bytes, biden.MarshalInt64, biden.UnmarshalInt64)
 }
 
-func BenchmarkUnmarshalFloat32Slice(b *testing.B) {
+func Benchmark_Biden_UnmarshalFloat32Slice(b *testing.B) {
 	nums := makeFloat32s()
 	benchmarkUnmarshalSlice(b, nums, biden.Float32Bytes, biden.MarshalFloat32, biden.UnmarshalFloat32)
 }
 
-func BenchmarkUnmarshalFloat64Slice(b *testing.B) {
+func Benchmark_Biden_UnmarshalFloat64Slice(b *testing.B) {
 	nums := makeFloat64s()
 	benchmarkUnmarshalSlice(b, nums, biden.Float64Bytes, biden.MarshalFloat64, biden.UnmarshalFloat64)
 }
 
-func BenchmarkUnmarshalStringSlice(b *testing.B) {
+func Benchmark_Biden_UnmarshalStringSlice(b *testing.B) {
 	var (
 		strings = makeStrings()
 

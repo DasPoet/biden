@@ -68,30 +68,29 @@ func BenchmarkUnmarshalFloat64Slice(b *testing.B) {
 func BenchmarkUnmarshalStringSlice(b *testing.B) {
 	var (
 		strings = makeStrings()
-		size    = biden.StringSliceBytes(strings)
 
-		marshaler   = makeSliceMarshaler(biden.MarshalString)
-		unmarshaler = makeSliceUnmarshaler(biden.UnmarshalString)
+		size      = biden.StringSliceBytes(strings)
+		marshaler = makeSliceMarshaler(biden.MarshalString)
 
 		encoded = biden.Marshal(strings, size, marshaler)
 	)
 
 	for b.Loop() {
+		unmarshaler := makeSliceUnmarshaler(biden.UnmarshalString)
 		biden.Unmarshal(encoded, unmarshaler)
 	}
 }
 
 func benchmarkUnmarshalSlice[T any](b *testing.B, slice []T, itemSize int, itemMarshaler biden.MarshalFunc[T], itemUnmarshaler biden.UnmarshalFunc[T]) {
 	var (
-		size = biden.SliceBytes(slice, itemSize)
-
-		marshaler   = makeSliceMarshaler(itemMarshaler)
-		unmarshaler = makeSliceUnmarshaler(itemUnmarshaler)
+		size      = biden.SliceBytes(slice, itemSize)
+		marshaler = makeSliceMarshaler(itemMarshaler)
 
 		encoded = biden.Marshal(slice, size, marshaler)
 	)
 
 	for b.Loop() {
+		unmarshaler := makeSliceUnmarshaler(itemUnmarshaler)
 		biden.Unmarshal(encoded, unmarshaler)
 	}
 }

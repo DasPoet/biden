@@ -72,25 +72,25 @@ func BenchmarkMarshalFloat64Slice(b *testing.B) {
 }
 
 func BenchmarkMarshalStringSlice(b *testing.B) {
-	var (
-		strings = makeStrings()
-
-		size      = biden.StringSliceBytes(strings)
-		marshaler = makeSliceMarshaler(biden.MarshalString)
-	)
-
 	for b.Loop() {
+		var (
+			strings = makeStrings()
+
+			size      = biden.StringSliceBytes(strings)
+			marshaler = makeSliceMarshaler(biden.MarshalString)
+		)
+
 		biden.Marshal(strings, size, marshaler)
 	}
 }
 
 func benchmarkMarshalSlice[T any](b *testing.B, slice []T, itemSize int, itemMarshaler biden.MarshalFunc[T]) {
-	var (
-		size      = biden.SliceBytes(slice, itemSize)
-		marshaler = makeSliceMarshaler(itemMarshaler)
-	)
-
 	for b.Loop() {
+		var (
+			size      = biden.SliceBytes(slice, itemSize)
+			marshaler = makeSliceMarshaler(itemMarshaler)
+		)
+
 		biden.Marshal(slice, size, marshaler)
 	}
 }

@@ -38,25 +38,25 @@ jobs:
           exit 1
         fi
 
-    - name: Install dependencies for creating graphs
-      run: |
-        cd graphs
-        curl -LsSf https://astral.sh/uv/install.sh | sh
-        source $HOME/.local/bin/env
-        uv venv
-        . .venv/bin/activate
-        uv pip install -r requirements.txt
-
-    - name: Benchmark
-      run: |
-        cd graphs
-        . .venv/bin/activate
-        cd ../benchmark
-        go test -bench="." -benchmem . | go run ../v1/internal/benchmark/cmd/main.go | python ../graphs/graphs.py
-
-    - name: Comment benchmark results
-      uses: thollander/actions-comment-pull-request@v3
-      with:
-        message: |
-          Hello world ! :wave:
-      if: github.event_name == 'pull_request'
+    # - name: Install dependencies for creating graphs
+    #   run: |
+    #     cd graphs
+    #     curl -LsSf https://astral.sh/uv/install.sh | sh
+    #     source $HOME/.local/bin/env
+    #     uv venv
+    #     . .venv/bin/activate
+    #     uv pip install -r requirements.txt
+    #
+    # - name: Benchmark
+    #   run: |
+    #     cd graphs
+    #     . .venv/bin/activate
+    #     cd ../benchmark
+    #     go test -bench="." -benchmem . | go run ../v1/internal/benchmark/cmd/main.go | python ../graphs/graphs.py
+    #
+    # - name: Comment benchmark results
+    #   uses: thollander/actions-comment-pull-request@v3
+    #   with:
+    #     message: |
+    #       Hello world ! :wave:
+    #   if: github.event_name == 'pull_request'

@@ -16,7 +16,35 @@ $$\LARGE {\color{white}\textrm{bi}}{\color{gray}\textrm{nary~}}{\color{white}\te
 
 <hr />
 
-## Benchmarks
+## 📦 Getting started
+
+Start working with `biden` by installing it.
+
+```bash
+go get -u github.com/DasPoet/biden
+```
+
+Then, use the latest version (`v1`, currently) to convert between Go values and binary data.
+
+```go
+package main
+
+import "github.com/DasPoet/biden/pkg/v1"
+
+func main() {
+    // TODO
+}
+```
+
+## 🚀 Benchmarks
+
+There are several libraries that cover the same usecase as `biden`. `biden` was written to offer the best possible performance. To test whether it is any faster than competing alternatives, this repository contains a number of benchmarks. Their results are displayed below. If you are choosing this library for reasons related to performance, be sure to verify the results of these benchmarks in your own execution environment. Don't just believe things people are saying on the internet. If you find any mistakes in any of the code in this repository (including the benchmarks), please open an issue.
+
+The benchmarks compare `biden` to:
+
+* [benc](https://github.com/deneonet/benc)
+
+If you feel like we should include any other repository in this list, please suggest an addition by opening an issue.
 
 ### Marshaling
 

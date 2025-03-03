@@ -36,7 +36,7 @@ if __name__ == "__main__":
 
         plt.xticks(rotation=45)
 
-        plt.title(f"{str(typ).capitalize()} performance for primitive slices (lower is better)")
+        plt.title(f"{str(typ).capitalize()}ling performance for primitive slices (lower is better)")
 
         plt.xlabel("Type")
         plt.ylabel("Duration (ms)")

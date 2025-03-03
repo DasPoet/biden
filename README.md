@@ -11,25 +11,25 @@ $$\LARGE {\color{white}\textrm{bi}}{\color{gray}\textrm{nary~}}{\color{white}\te
 </div>
 
 <div align="center">
-    Biden provides low-level facilities for converting between Go's primitive types and binary data streams.
+    Biden *(baɪ̯dən) * provides low-level facilities for converting between Go's primitive types and binary data streams.
 </div
 
 <hr />
 
 ## 📦 Getting started
 
-Start working with `biden` by installing it.
+### Installation
 
 ```bash
 go get -u github.com/DasPoet/biden
 ```
 
-Then, use the latest version (`v1`, currently) to convert between Go values and binary data.
+### Usage
 
 ```go
 package main
 
-import "github.com/DasPoet/biden/pkg/v1"
+import "github.com/DasPoet/biden/pkg/biden"
 
 func main() {
     // TODO

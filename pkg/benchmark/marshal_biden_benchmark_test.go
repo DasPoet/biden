@@ -3,7 +3,7 @@ package benchmark
 import (
 	"testing"
 
-	biden "github.com/daspoet/biden/v1"
+	"github.com/daspoet/biden/pkg/biden"
 )
 
 func Benchmark_Biden_MarshalBoolSlice(b *testing.B) {

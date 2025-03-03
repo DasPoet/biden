@@ -1,7 +1,7 @@
 package benchmark
 
 import (
-	biden "github.com/daspoet/biden/v1"
+	"github.com/daspoet/biden/pkg/biden"
 	"testing"
 )
 

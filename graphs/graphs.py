@@ -17,7 +17,7 @@ def read_df() -> pd.DataFrame:
         if typ.endswith("Slice")
         else typ
     )
-    df["millisPerOp"] = df["nanosPerOp"] // 1_000_000
+    df["millisPerOp"] = df["nanosPerOp"].div(1_000_000)
     df.drop(columns=["nanosPerOp"], inplace=True)
 
     df = df[df["dataType"] != "[]string"]
@@ -26,6 +26,8 @@ def read_df() -> pd.DataFrame:
 
 if __name__ == "__main__":
     df = read_df()
+
+    df["benchmarkLibrary"] = df["benchmarkLibrary"].replace("gob", "encoding/gob")
 
     for typ, group in df.groupby("benchmarkType"):
         plt.figure()

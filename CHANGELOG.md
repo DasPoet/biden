@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [0.2.0] - 2025-03-03
+
+### Added
+
+- benchmarks comparing `biden` to [benc](https://github.com/deneonet/benc) and [encoding/gob](https://pkg.go.dev/encoding/gob) have been added
+- proper documentation has been added to the `README.md`
+
+### Changed
+
+- `biden` has been restructured to allow for easier consumption
+
 ## [0.1.0] - 2025-01-05
 
 ### Added

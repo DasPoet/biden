@@ -43,6 +43,7 @@ There are several libraries that cover the same usecase as `biden`. `biden` was 
 The benchmarks compare `biden` to:
 
 * [benc](https://github.com/deneonet/benc)
+* [encoding/gob](https://pkg.go.dev/encoding/gob)
 
 If you feel like we should include any other repository in this list, please suggest an addition by opening an issue.
 

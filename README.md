@@ -18,7 +18,3 @@ $$\LARGE {\color{white}\textrm{bi}}{\color{gray}\textrm{nary~}}{\color{white}\te
 
 just bench-slices > out.txt && cat out.txt | go run v1/internal/benchmark/cmd/main.go out.json
 
-## TODO
-
-* benchmark one generic Marshal/Unmarshal func per byte size
-

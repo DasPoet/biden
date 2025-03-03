@@ -5,6 +5,11 @@ import (
 	"testing"
 )
 
+func Benchmark_Biden_UnmarshalBoolSlice(b *testing.B) {
+	bools := makeBools()
+	benchmarkUnmarshalSlice(b, bools, biden.BoolBytes, biden.MarshalBool, biden.UnmarshalBool)
+}
+
 func Benchmark_Biden_UnmarshalUintSlice(b *testing.B) {
 	nums := makeUints()
 	benchmarkUnmarshalSlice(b, nums, biden.UintBytes, biden.MarshalUint, biden.UnmarshalUint)

@@ -27,8 +27,8 @@ func TestMarshalUnmarshalStringSlice(t *testing.T) {
 	var (
 		data = []string{"", "hello", "world", ""}
 
-		marshaler   = makeSliceMarshaler(MarshalString)
-		unmarshaler = makeSliceUnmarshaler(UnmarshalString)
+		marshaler   = NewSliceMarshaler(MarshalString)
+		unmarshaler = NewSliceUnmarshaler(UnmarshalString)
 	)
 
 	testMarshalUnmarshal(t, data, StringSliceBytes(data), marshaler, unmarshaler)
@@ -38,8 +38,8 @@ func testMarshalUnmarshalSlice[T any](t *testing.T, value []T, itemSize int, ite
 	var (
 		size = SliceBytes(value, itemSize)
 
-		marshaler   = makeSliceMarshaler(itemMarshaler)
-		unmarshaler = makeSliceUnmarshaler(itemUnmarshaler)
+		marshaler   = NewSliceMarshaler(itemMarshaler)
+		unmarshaler = NewSliceUnmarshaler(itemUnmarshaler)
 	)
 
 	testMarshalUnmarshal(t, value, size, marshaler, unmarshaler)

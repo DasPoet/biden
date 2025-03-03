@@ -89,7 +89,7 @@ func Benchmark_Biden_UnmarshalStringSlice(b *testing.B) {
 func benchmarkUnmarshalSlice[T any](b *testing.B, slice []T, itemSize int, itemMarshaler biden.MarshalFunc[T], itemUnmarshaler biden.UnmarshalFunc[T]) {
 	var (
 		size      = biden.SliceBytes(slice, itemSize)
-		marshaler = makeSliceMarshaler(itemMarshaler)
+		marshaler = biden.NewSliceMarshaler(itemMarshaler)
 
 		encoded = biden.Marshal(slice, size, marshaler)
 	)

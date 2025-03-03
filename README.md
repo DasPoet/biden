@@ -11,7 +11,7 @@ $$\LARGE {\color{white}\textrm{bi}}{\color{gray}\textrm{nary~}}{\color{white}\te
 </div>
 
 <div align="center">
-    Biden *(baɪ̯dən) * provides low-level facilities for converting between Go's primitive types and binary data streams.
+    Biden (baɪ̯dən) provides low-level facilities for converting between Go's primitive types and binary data streams.
 </div
 
 <hr />
@@ -29,10 +29,50 @@ go get -u github.com/DasPoet/biden
 ```go
 package main
 
-import "github.com/DasPoet/biden/pkg/biden"
+import (
+	"fmt"
+	"reflect"
+
+	"github.com/daspoet/biden/pkg/biden"
+)
 
 func main() {
-    // TODO
+	var (
+		values      = []uint32{1, 1, 2, 3, 5, 8, 13, 21, 34, 55}
+		description = "These are the Fibonacci numbers."
+	)
+
+	encoded := marshal(values, description)
+	decodedValues, decodedDescription := unmarshal(encoded)
+
+	fmt.Println(reflect.DeepEqual(decodedValues, values))
+	fmt.Println(decodedDescription == description)
+}
+
+func marshal(values []uint32, description string) []byte {
+	var size int
+
+	// find out how big our buffer needs to be
+	size += biden.SliceBytes(values, biden.Uint32Bytes)
+	size += biden.StringBytes(description)
+
+	buf := make([]byte, size)
+
+	var pos int
+
+	pos = biden.MarshalSlice(pos, buf, values, biden.MarshalUint32)
+	pos = biden.MarshalString(pos, buf, description)
+
+	return buf
+}
+
+func unmarshal(encoded []byte) ([]uint32, string) {
+	var pos int
+
+	decodedValues, pos := biden.UnmarshalSlice(pos, encoded, biden.UnmarshalUint32)
+	decodedDescription, pos := biden.UnmarshalString(pos, encoded)
+
+	return decodedValues, decodedDescription
 }
 ```
 

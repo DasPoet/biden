@@ -29,3 +29,6 @@ release/__pycache__
 
 # Python
 **/.venv/
+
+# Benchmarks
+*.svg

@@ -1,6 +1,10 @@
 package biden
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/google/uuid"
+)
 
 func TestMarshalUnmarshalSlice(t *testing.T) {
 	testMarshalUnmarshalSlice(t, []any{}, 1, nil, nil)
@@ -32,6 +36,17 @@ func TestMarshalUnmarshalStringSlice(t *testing.T) {
 	)
 
 	testMarshalUnmarshal(t, data, StringSliceBytes(data), marshaler, unmarshaler)
+}
+
+func TestMarshalUnmarshalUUIDSlice(t *testing.T) {
+	var (
+		data = []uuid.UUID{uuid.New(), uuid.New(), uuid.New()}
+
+		marshaler   = NewSliceMarshaler(MarshalUUID)
+		unmarshaler = NewSliceUnmarshaler(UnmarshalUUID)
+	)
+
+	testMarshalUnmarshal(t, data, SliceBytes(data, UUIDBytes), marshaler, unmarshaler)
 }
 
 func testMarshalUnmarshalSlice[T any](t *testing.T, value []T, itemSize int, itemMarshaler MarshalFunc[T], itemUnmarshaler UnmarshalFunc[T]) {

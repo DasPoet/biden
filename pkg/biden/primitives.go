@@ -1,6 +1,10 @@
 package biden
 
-import "math"
+import (
+	"math"
+
+	"github.com/google/uuid"
+)
 
 const (
 	BoolBytes = 1
@@ -19,6 +23,8 @@ const (
 
 	Float32Bytes = 4
 	Float64Bytes = 8
+
+	UUIDBytes = 16
 )
 
 func MarshalBool(pos int, buf []byte, b bool) int {
@@ -370,4 +376,16 @@ func UnmarshalString(pos int, buf []byte) (string, int) {
 	len, pos := UnmarshalInt(pos, buf)
 
 	return string(buf[pos : pos+len]), pos + len
+}
+
+func MarshalUUID(pos int, buf []byte, id uuid.UUID) int {
+	copy(buf[pos:pos+UUIDBytes], id[:])
+	return pos + UUIDBytes
+}
+
+func UnmarshalUUID(pos int, buf []byte) (uuid.UUID, int) {
+	var id uuid.UUID
+	copy(id[:], buf[pos:pos+UUIDBytes])
+
+	return id, pos + UUIDBytes
 }

@@ -3,6 +3,8 @@ package benchmark
 import (
 	"math/rand"
 	"strings"
+
+	"github.com/google/uuid"
 )
 
 const (
@@ -127,4 +129,12 @@ func makeStrings() []string {
 		items[i] = b.String()
 	}
 	return items
+}
+
+func makeUUIDs() []uuid.UUID {
+	ids := make([]uuid.UUID, sampleSize)
+	for i := range sampleSize {
+		ids[i] = uuid.New()
+	}
+	return ids
 }

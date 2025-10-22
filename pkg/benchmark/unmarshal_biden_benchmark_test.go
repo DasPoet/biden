@@ -86,6 +86,11 @@ func Benchmark_Biden_UnmarshalStringSlice(b *testing.B) {
 	}
 }
 
+func Benchmark_Biden_UnmarshalUUIDSlice(b *testing.B) {
+	ids := makeUUIDs()
+	benchmarkUnmarshalSlice(b, ids, biden.UUIDBytes, biden.MarshalUUID, biden.UnmarshalUUID)
+}
+
 func benchmarkUnmarshalSlice[T any](b *testing.B, slice []T, itemSize int, itemMarshaler biden.MarshalFunc[T], itemUnmarshaler biden.UnmarshalFunc[T]) {
 	var (
 		size      = biden.SliceBytes(slice, itemSize)

@@ -27,3 +27,15 @@ func NewSliceUnmarshaler[T any](unmarshalItem UnmarshalFunc[T]) UnmarshalFunc[[]
 		return UnmarshalSlice(pos, buf, unmarshalItem)
 	}
 }
+
+func NewMapMarshaler[K comparable, V any](marshalKey MarshalFunc[K], marshalValue MarshalFunc[V]) MarshalFunc[map[K]V] {
+	return func(pos int, buf []byte, m map[K]V) int {
+		return MarshalMap(pos, buf, m, marshalKey, marshalValue)
+	}
+}
+
+func NewMapUnmarshaler[K comparable, V any](unmarshalKey UnmarshalFunc[K], unmarshalValue UnmarshalFunc[V]) UnmarshalFunc[map[K]V] {
+	return func(pos int, buf []byte) (map[K]V, int) {
+		return UnmarshalMap(pos, buf, unmarshalKey, unmarshalValue)
+	}
+}

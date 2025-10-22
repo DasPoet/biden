@@ -24,6 +24,8 @@ const (
 	Float32Bytes = 4
 	Float64Bytes = 8
 
+	RuneBytes = Int32Bytes
+
 	UUIDBytes = 16
 )
 

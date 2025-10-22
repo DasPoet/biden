@@ -9,7 +9,7 @@ class Changelist:
     changes: list[str] = field(default_factory=list)
 
     def to_markdown(self) -> str:
-        changes = '\n'.join('- ' + change for change in self.changes)
+        changes = "\n".join("- " + change for change in self.changes)
 
         return f"## {self.type}\n\n{changes}"
 
@@ -24,12 +24,31 @@ class Version:
 
         return "# Changes\n\n" + "\n\n".join(changes)
 
+
 @dataclass
 class Changelog:
     versions: list[Version] = field(default_factory=list)
 
 
 def parse_version_line(line: str) -> str | None:
+    version = parse_unreleased_version_line(line)
+    if version is not None:
+        return version
+
+    return parse_specific_version_line(line)
+
+
+def parse_unreleased_version_line(line: str) -> str | None:
+    pattern = re.compile(r"## \[(?P<version>Unreleased)]")
+
+    match = pattern.match(line)
+    if not match:
+        return None
+
+    return match.group("version")
+
+
+def parse_specific_version_line(line: str) -> str | None:
     pattern = re.compile(r"## \[(?P<version>\d+\.\d+\.\d+)] - \d\d\d\d-\d\d-\d\d")
 
     match = pattern.match(line)
@@ -40,14 +59,16 @@ def parse_version_line(line: str) -> str | None:
 
 
 def parse_changes_line(line: str) -> str | None:
-    pattern = re.compile(r"### (?P<type>Added|Changed|Deprecated|Removed|Fixed|Security)")
+    pattern = re.compile(
+        r"### (?P<type>Added|Changed|Deprecated|Removed|Fixed|Security)"
+    )
 
     match = pattern.match(line)
     if not match:
         return None
 
     return match.group("type")
-    
+
 
 def parse_change_line(line: str) -> str | None:
     if line.startswith("* "):
@@ -70,7 +91,9 @@ def parse_changelog(content: str) -> Changelog:
         version = parse_version_line(line)
         if version is not None:
             if last_version is not None:
-                last_version.changelists = [cl for cl in changelists_by_type.values() if len(cl.changes) > 0]
+                last_version.changelists = [
+                    cl for cl in changelists_by_type.values() if len(cl.changes) > 0
+                ]
                 versions.append(last_version)
 
             last_version = Version(name=version)
@@ -86,9 +109,11 @@ def parse_changelog(content: str) -> Changelog:
             assert last_version, line
 
             changelists_by_type[last_type].changes.append(change)
-    
+
     if last_version is not None:
-        last_version.changelists = [cl for cl in changelists_by_type.values() if len(cl.changes) > 0]
+        last_version.changelists = [
+            cl for cl in changelists_by_type.values() if len(cl.changes) > 0
+        ]
         versions.append(last_version)
 
     return Changelog(versions)

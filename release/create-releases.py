@@ -13,7 +13,7 @@ def read_changelog(path: str) -> Changelog:
         content = file.read()
 
     return parse_changelog(content)
-    
+
 
 def get_release_message(version: Version) -> str:
     return "\n\n".join(map(lambda cl: cl.to_markdown(), version.changelists))
@@ -24,6 +24,10 @@ def create_releases(repo: Repository, changelog: Changelog):
 
     for version in changelog.versions:
         tag = version.name
+        if tag == "Unreleased":
+            print(f"skipping release for {tag} as it does not need to be released")
+            continue
+
         if tag in releases:
             print(f"skipping release for v{tag} as it already exists")
             continue
@@ -35,7 +39,7 @@ def create_releases(repo: Repository, changelog: Changelog):
             name=f"v{tag}",
             message=get_release_message(version),
             draft=False,
-            prerelease=False
+            prerelease=False,
         )
 
 
@@ -47,7 +51,9 @@ if __name__ == "__main__":
     local_repo = git.Repo(".")
 
     local_repo.config_writer().set_value("user", "name", "DasPoet").release()
-    local_repo.config_writer().set_value("user", "email", "cederk2306@gmail.com").release()
+    local_repo.config_writer().set_value(
+        "user", "email", "cederk2306@gmail.com"
+    ).release()
 
     client = get_github_client()
     remote_repo = get_remote_repository(client)

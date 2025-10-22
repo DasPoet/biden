@@ -4,6 +4,15 @@ func MapBytes[K comparable, V any](m map[K]V, keySize, valueSize int) int {
 	return IntBytes + len(m)*(keySize+valueSize)
 }
 
+func DynamicMapBytes[K comparable, V any](m map[K]V, keySizer SizerFunc[K], valueSizer SizerFunc[V]) int {
+	size := IntBytes
+	for key, value := range m {
+		size += keySizer(key)
+		size += valueSizer(value)
+	}
+	return size
+}
+
 func MarshalMap[K comparable, V any](pos int, buf []byte, m map[K]V, marshalKey MarshalFunc[K], marshalValue MarshalFunc[V]) int {
 	pos = MarshalInt(pos, buf, len(m))
 	for key, value := range m {

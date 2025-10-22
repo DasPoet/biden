@@ -1,6 +1,8 @@
 package biden
 
 type (
+	SizerFunc[T any] func(value T) int
+
 	MarshalFunc[T any]   func(pos int, buf []byte, value T) int
 	UnmarshalFunc[T any] func(pos int, buf []byte) (T, int)
 )

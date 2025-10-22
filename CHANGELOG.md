@@ -28,4 +28,3 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 - `biden` now supports the following primitive types: `bool`, `uint`, `uint8`, `uint16`, `uint32`, `uint64`, `int`, `int8`, `int16`, `int32`, `int64`, `float32`, `float64`, `string`
 - `biden` now supports slices of the aforementioned primitive types
-
